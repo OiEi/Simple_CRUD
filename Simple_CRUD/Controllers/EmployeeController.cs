@@ -35,7 +35,7 @@ namespace Simple_CRUD.Controllers
             }
         }
 
-        [Route("api/get_All_Empl")]
+        [Route("api/get_all_empl")]
         public IEnumerable<Employee> Get()
         {
             using (EmployeeContext db = new EmployeeContext())
@@ -44,7 +44,7 @@ namespace Simple_CRUD.Controllers
             }
         }
 
-        [Route("api/get_empl_from_company/{companyid}")]
+        [Route("api/get_empl_from_companies/{companyid}")]
         public IEnumerable<Employee> Get(int companyid)
         {
             using (EmployeeContext db = new EmployeeContext())
@@ -131,7 +131,7 @@ namespace Simple_CRUD.Controllers
                 {
                     db.Employees.Remove(employee);
                     db.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Employee with id {Id} was remove");
                 }
             }
         }

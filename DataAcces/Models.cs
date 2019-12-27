@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAcces
-{
-
-
+{ 
     public class Employee
     {
         [Key]
@@ -26,7 +24,6 @@ namespace DataAcces
         
         [JsonIgnore]
         public Pasport Pasport { get; set; }
-
     }
     public class Company
     {
