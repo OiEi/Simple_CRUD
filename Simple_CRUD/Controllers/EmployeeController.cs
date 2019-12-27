@@ -11,7 +11,7 @@ namespace Simple_CRUD.Controllers
     public class EmployeeController : ApiController
     {
         //Создание тестовых таблиц
-        [Route("api/CreateData")]
+        [Route("api/createdata")]
         public void Post()
         {
             using (EmployeeContext db = new EmployeeContext())
@@ -32,7 +32,6 @@ namespace Simple_CRUD.Controllers
                 Employee empl3 = new Employee { Name = "Zina", Surname = "Kuzina", Phone = "34521564562", Pasport = p3, Company = c2 };
                 db.Employees.AddRange(new List<Employee> { empl1, empl2, empl3 });
                 db.SaveChanges();
-
             }
         }
 
@@ -56,7 +55,7 @@ namespace Simple_CRUD.Controllers
             }
         }
 
-        [Route("api/Create_Empl")]
+        [Route("api/create_empl")]
         public void Post([FromBody]Employee employee)
         {
             using (EmployeeContext db = new EmployeeContext())
@@ -66,8 +65,28 @@ namespace Simple_CRUD.Controllers
             }
         }
 
-        //Тут я пока не допилил, и поэтому нужно в теле передавать Name Surname Phone CompanyId PasportId или put их нулями заполнит
-        [Route("api/Edit_Empl/{Id}")]
+        [Route("api/create_pasports")]
+        public void Post([FromBody]Pasport pasport)
+        {
+            using (EmployeeContext db = new EmployeeContext())
+            {
+                db.Pasports.Add(pasport);
+                db.SaveChanges();
+            }
+        }
+
+        [Route("api/create_companies")]
+        public void Post([FromBody]Company company)
+        {
+            using (EmployeeContext db = new EmployeeContext())
+            {
+                db.Companies.Add(company);
+                db.SaveChanges();
+            }
+        }
+               
+        //Тут я конечно не допилил. Метод работает, но с огрехами
+        [Route("api/edit_empl/{Id}")]
         public HttpResponseMessage Put(int id, [FromBody]Employee employee)
         {
             try
@@ -96,35 +115,24 @@ namespace Simple_CRUD.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-
-
         }
 
-        [Route("api/DeleteEmpl/{Id}/")]
-        public void Delete(int id)
+        [Route("api/delete_empl/{Id}")]
+        public HttpResponseMessage Delete(int Id)
         {
             using (EmployeeContext db = new EmployeeContext())
             {
-                db.Employees.Remove(db.Employees.FirstOrDefault(e => e.id == id));
-                db.SaveChanges();
-            }
-        }
-
-        [HttpPatch]
-        [Route("api/edit/{Id}/")]
-        public IHttpActionResult Edit(int id, [FromBody] Employee employee)
-        {
-            using (EmployeeContext db = new EmployeeContext())
-            { 
-                var editempl = db.Employees.FirstOrDefault(e => e.id == id);
-                
-                editempl.Name = employee.Name;
-                editempl.Surname = employee.Surname;
-                editempl.Phone = employee.Phone;
-                editempl.CompanyId = employee.CompanyId;
-                editempl.PasportId = employee.PasportId;
-                db.SaveChanges();
-                return Ok();
+                var employee = db.Employees.FirstOrDefault(e => e.id == Id);
+                if (employee == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"Employee with id {Id} not found");
+                }
+                else
+                {
+                    db.Employees.Remove(employee);
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
             }
         }
     }
