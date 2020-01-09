@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories.cs" />
+    <Compile Include="IRepositories.cs" />
+    <Compile Include="MyDBInitializer.cs" />
     <Compile Include="EmployeeContext.cs" />
     <Compile Include="Migrations\201912261119104_InitialCreate.cs" />
     <Compile Include="Migrations\201912261119104_InitialCreate.designer.cs">
@@ -68,6 +71,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

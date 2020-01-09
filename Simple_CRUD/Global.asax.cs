@@ -1,5 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Data.Entity;
+using System.Web.Http;
 using System.Web.Mvc;
+using DataAcces;
 
 namespace Simple_CRUD
 {
@@ -9,7 +11,8 @@ namespace Simple_CRUD
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            
+            Database.SetInitializer (new MyDBInitializer());
+                        
         }
     }
 }

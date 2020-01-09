@@ -8,32 +8,33 @@ using System.Web.Http;
 
 namespace Simple_CRUD.Controllers
 {
+    [RoutePrefix("v1")]
     public class EmployeeController : ApiController
     {
-        //Создание тестовых таблиц
-        [Route("api/createdata")]
-        public void Post()
-        {
-            using (EmployeeContext db = new EmployeeContext())
-            {
-                Company c1 = new Company();
-                Company c2 = new Company();
-                db.Companies.Add(c1);
-                db.Companies.Add(c2);
-                db.SaveChanges();
-                Pasport p1 = new Pasport { Type = "RU", Number = "456" };
-                Pasport p2 = new Pasport { Type = "ENG", Number = "987" };
-                Pasport p3 = new Pasport { Type = "RU", Number = "123" };
-                db.Pasports.Add(p1);
-                db.Pasports.Add(p2);
-                db.Pasports.Add(p3);
-                Employee empl1 = new Employee { Name = "Роналду", Surname = "Иванов", Phone = "987456321", Pasport = p1, Company = c1 };
-                Employee empl2 = new Employee { Name = "Petia", Surname = "Tarashkevich", Phone = "9876544896", Pasport = p2, Company = c1 };
-                Employee empl3 = new Employee { Name = "Zina", Surname = "Kuzina", Phone = "34521564562", Pasport = p3, Company = c2 };
-                db.Employees.AddRange(new List<Employee> { empl1, empl2, empl3 });
-                db.SaveChanges();
-            }
-        }
+        /*        //Создание тестовых таблиц
+                [Route("api/createdata")]
+                public void Post()
+                {
+                    using (EmployeeContext db = new EmployeeContext())
+                    {
+                        Company c1 = new Company();
+                        Company c2 = new Company();
+                        db.Companies.Add(c1);
+                        db.Companies.Add(c2);
+                        db.SaveChanges();
+                        Pasport p1 = new Pasport { Type = "RU", Number = "456" };
+                        Pasport p2 = new Pasport { Type = "ENG", Number = "987" };
+                        Pasport p3 = new Pasport { Type = "RU", Number = "123" };
+                        db.Pasports.Add(p1);
+                        db.Pasports.Add(p2);
+                        db.Pasports.Add(p3);
+                        Employee empl1 = new Employee { Name = "Роналду", Surname = "Иванов", Phone = "987456321", Pasport = p1, Company = c1 };
+                        Employee empl2 = new Employee { Name = "Petia", Surname = "Tarashkevich", Phone = "9876544896", Pasport = p2, Company = c1 };
+                        Employee empl3 = new Employee { Name = "Zina", Surname = "Kuzina", Phone = "34521564562", Pasport = p3, Company = c2 };
+                        db.Employees.AddRange(new List<Employee> { empl1, empl2, empl3 });
+                        db.SaveChanges();
+                    }
+                }*/
 
         [Route("api/get_all_empl")]
         public IEnumerable<Employee> Get()

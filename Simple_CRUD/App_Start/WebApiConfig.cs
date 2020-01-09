@@ -15,9 +15,9 @@ namespace Simple_CRUD
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "ActionOnlyRoute",
+                routeTemplate: "",
+                defaults: new { controller = "Main"}
             );
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
