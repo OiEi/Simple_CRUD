@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace DataAcces
+namespace DataAcces.Repositories
 {
-    public class EmployeeRepo : IEmplRepository<Employee>
+    public class EmployeeRepository : IEmplRepository<Employee>
     {
         private EmployeeContext db;
 
-        public EmployeeRepo(EmployeeContext context)
+        public EmployeeRepository(EmployeeContext context)
         {
             this.db = context;
         }
@@ -41,28 +44,4 @@ namespace DataAcces
                 db.Employees.Remove(employee);
         }
     }
-
-          
-    public class CompanyRepo : ICompanyRepository<Employee>
-    {
-        private EmployeeContext db;
-
-        public CompanyRepo(EmployeeContext context)
-        {
-            this.db = context;
-        }
-
-        public void Create(Employee employee)
-        {
-            db.Employees.Add(employee);
-        }
-
-        public IEnumerable<Employee> GetAllEmplFromCompany(int companyid)
-        {
-            return db.Employees;
-        }
-
-    }
 }
-
-

@@ -1,29 +1,34 @@
-﻿using System;
+﻿using DataAcces.Repositories;
+using System;
 
-
-namespace DataAcces
+namespace DataAcces.Interfaces
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private EmployeeContext db = new EmployeeContext();
-        private EmployeeRepo employeeRepo;
-        private CompanyRepo companyRepo;
+        private EmployeeContext db;
+        private EmployeeRepository employeeRepo;
+        private CompanyRepository companyRepo;
 
-        public EmployeeRepo Employees
+        public UnitOfWork(string connectionString)
+        {
+            db = new EmployeeContext(connectionString);
+        }
+        
+        public IEmplRepository<Employee> Employees
         {
             get
             {
                 if (employeeRepo == null)
-                    employeeRepo = new EmployeeRepo(db);
+                    employeeRepo = new EmployeeRepository(db);
                 return employeeRepo;
             }
         }
-        public CompanyRepo Companies
+        public ICompanyRepository<Company> Companies
         {
             get
             {
                 if (companyRepo == null)
-                    companyRepo = new CompanyRepo(db);
+                    companyRepo = new CompanyRepository(db);
                 return companyRepo;
             }
         }
@@ -32,7 +37,6 @@ namespace DataAcces
             db.SaveChanges();
         }
         private bool disposed = false;
-
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -44,7 +48,6 @@ namespace DataAcces
                 this.disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);

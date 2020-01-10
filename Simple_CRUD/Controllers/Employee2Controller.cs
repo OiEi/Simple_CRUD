@@ -9,10 +9,10 @@ namespace Simple_CRUD.Controllers
     [RoutePrefix("v2")]
     public class Employee2Controller : ApiController
     {
-        UnitOfWork unitOfWork;
+        UnitOfWork1 _unitOfWork;
         public Employee2Controller()
         {
-            unitOfWork = new UnitOfWork();
+            _unitOfWork = new UnitOfWork1();
         }
 
         [Route("api/test")]
@@ -20,7 +20,7 @@ namespace Simple_CRUD.Controllers
         public IEnumerable<Employee> GetAll()
         {
             {
-                var Employees = unitOfWork.Employees.GetAll();
+                var Employees = _unitOfWork.Employees.GetAll();
                 return Employees;
             }
         }
